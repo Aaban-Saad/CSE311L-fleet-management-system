@@ -95,8 +95,8 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
             <!-- Navigation -->
             <nav class="mt-6">
                 <div class="px-4">
-                    <button id="add-vehicle-btn"
-                        class="w-full bg-purple-600 hover:bg-purple-700 text-black font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 mb-6">
+                    <button id="add-vehicle-btn text-white"
+                        class="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200 flex items-center justify-center gap-2 mb-6">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd"
                                 d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
@@ -106,7 +106,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                     </button>
                 </div>
                 <ul class="space-y-2 px-4">
-                    <li>
+                    <!-- <li>
                         <a href="#"
                             class="nav-link flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 rounded-lg transition duration-200"
                             data-page="dashboard">
@@ -117,7 +117,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                             </svg>
                             Dashboard
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a href="?tab=vehicles"
                             class="nav-link flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 rounded-lg transition duration-200 <?php echo $active_tab == 'vehicles' ? 'font-bold' : 'font-base'; ?>"
@@ -168,7 +168,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                             Fuel & Energy
                         </a>
                     </li>
-                    <li>
+                    <!-- <li>
                         <a href="#"
                             class="nav-link flex items-center gap-3 p-3 text-gray-700 hover:bg-purple-50 rounded-lg transition duration-200"
                             data-page="reports">
@@ -179,7 +179,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                             </svg>
                             Reports
                         </a>
-                    </li>
+                    </li> -->
                 </ul>
             </nav>
         </div>
@@ -191,7 +191,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
             <div class="px-4">
                 <!-- Vehicle add button -->
                 <button id="add-vehicle-btn-mobile"
-                    class="fixed bottom-14 right-3 w-10 h-10 bg-purple-600 hover:bg-purple-700 text-black font-medium rounded-full transition duration-200 flex items-center justify-center gap-2 mb-6">
+                    class="fixed bottom-14 right-3 w-10 h-10 bg-purple-600 hover:bg-purple-700 text-white font-medium rounded-full transition duration-200 flex items-center justify-center gap-2 mb-6">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
@@ -284,7 +284,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                     </div>
                     <div class="flex items-center gap-4 md:gap-2">
                         <!-- Search Box -->
-                        <div class="relative hidden md:block">
+                        <!-- <div class="relative hidden md:block">
                             <input type="text" placeholder="Search..."
                                 class="w-44 xl:w-56 pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
                             <svg xmlns="http://www.w3.org/2000/svg"
@@ -293,23 +293,45 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
-                        </div>
-                        <!-- User Profile -->
-                        <div class="flex items-center gap-2">
-                            <div
-                                class="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-semibold">
-                                JD
+                        </div> -->
+                        <!-- User Profile Dropdown -->
+                        <div class="relative">
+                            <button id="userProfileBtn" type="button"
+                                class="flex items-center gap-2 focus:outline-none">
+                                <div
+                                    class="h-10 w-10 rounded-full bg-purple-600 flex items-center justify-center text-white font-semibold">
+                                    JD
+                                </div>
+                                <span
+                                    class="font-medium hidden sm:block"><?php echo htmlspecialchars($user_email); ?></span>
+                            </button>
+                            <div id="logoutDropdown"
+                                class="absolute right-0 mt-2 w-28 bg-white rounded shadow-lg z-10 hidden">
+                                <a href="?logout=1"
+                                    class="block text-sm text-center bg-red-600 text-white px-3 py-2 rounded hover:bg-red-700">Logout</a>
                             </div>
-                            <span
-                                class="font-medium hidden sm:block"><?php echo htmlspecialchars($user_email); ?></span>
                         </div>
                     </div>
+                    <script>
+                        // Toggle dropdown
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const btn = document.getElementById('userProfileBtn');
+                            const dropdown = document.getElementById('logoutDropdown');
+                            btn.addEventListener('click', function (e) {
+                                e.stopPropagation();
+                                dropdown.classList.toggle('hidden');
+                            });
+                            document.addEventListener('click', function () {
+                                dropdown.classList.add('hidden');
+                            });
+                        });
+                    </script>
                 </div>
             </header>
 
 
             <div class="bg-white/10 rounded-lg p-6 backdrop-blur-sm">
-                
+
 
                 <!-- Dashboard Summary -->
                 <!-- <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
@@ -365,7 +387,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                             <div class="bg-white rounded-lg shadow mb-6">
                                 <div class="p-6 flex flex-wrap items-center justify-between gap-4">
                                     <a href="vehicle_form.php" id="add-vehicle-btn-2"
-                                        class="px-4 py-2 bg-purple-600 rounded-lg font-medium flex items-center gap-2">
+                                        class="px-4 py-2 bg-purple-600 rounded-lg font-medium flex items-center gap-2 text-white">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
                                             <path fill-rule="evenodd"
@@ -426,11 +448,11 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                                                             <span class="px-2 py-1 rounded text-xs 
                                                 <?php
                                                 if ($vehicle['status'] == 'Active')
-                                                    echo 'bg-green-800 text-black';
+                                                    echo 'bg-green-800 text-white';
                                                 elseif ($vehicle['status'] == 'Inactive')
-                                                    echo 'bg-red-800 text-black';
+                                                    echo 'bg-red-800 text-white';
                                                 else
-                                                    echo 'bg-yellow-800 text-black';
+                                                    echo 'bg-yellow-800 text-white';
                                                 ?>">
                                                                 <?php echo $vehicle['status']; ?>
                                                             </span>
@@ -460,7 +482,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                         <!-- Drivers Tab -->
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold">Drivers</h2>
-                            <a href="driver_form.php" class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded">Add
+                            <a href="driver_form.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Add
                                 Driver</a>
                         </div>
 
@@ -525,7 +547,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                                                 <td class="px-4 py-2"><?php echo htmlspecialchars($driver['contact']); ?></td>
                                                 <td class="px-4 py-2"><?php echo htmlspecialchars($driver['licence']); ?></td>
                                                 <td class="px-4 py-2">
-                                                    <span class="px-2 py-1 rounded text-xs 
+                                                    <span class="px-2 py-1 rounded text-xs text-white
                                                         <?php
                                                         if ($driver['status'] == 'Available')
                                                             echo 'bg-green-800';
@@ -567,7 +589,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold">Maintenance Records</h2>
                             <a href="maintenance_form.php"
-                                class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded">Add Maintenance</a>
+                                class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Add Maintenance</a>
                         </div>
 
                         <?php if (empty($maintenance)): ?>
@@ -623,7 +645,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                                                 <td class="px-4 py-2"><?php echo $record['date']; ?></td>
                                                 <td class="px-4 py-2">
                                                     <span
-                                                        class="px-2 py-1 rounded text-xs 
+                                                        class="px-2 py-1 rounded text-xs text-white
                                                         <?php echo $record['status'] == 'Completed' ? 'bg-green-800' : 'bg-yellow-800'; ?>">
                                                         <?php echo $record['status']; ?>
                                                     </span>
@@ -649,7 +671,7 @@ $fuel_transactions = ($active_tab == 'fuel') ? get_fuel_transactions($user_conn)
                         <!-- Fuel Transactions Tab -->
                         <div class="flex justify-between items-center mb-4">
                             <h2 class="text-xl font-bold">Fuel Transactions</h2>
-                            <a href="fuel_form.php" class="bg-blue-600 hover:bg-blue-700 text-black px-4 py-2 rounded">Add
+                            <a href="fuel_form.php" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded">Add
                                 Fuel
                                 Transaction</a>
                         </div>
