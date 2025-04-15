@@ -75,7 +75,7 @@ The Fleet Management System is a web-based application designed to help organiza
 
 - **Frontend:** HTML, CSS (TailwindCSS), JavaScript
 - **Backend:** PHP (Procedural & MySQLi)
-- **Database:** MySQL/MariaDB
-- **Web Server:** Apache/Nginx
+- **Database:** MySQL
+- **Web Server:** Apache
 
 ---
