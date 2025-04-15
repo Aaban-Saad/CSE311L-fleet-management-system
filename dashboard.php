@@ -28,10 +28,10 @@ if (isset($_GET['logout'])) {
 $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'vehicles';
 
 // Get counts
-$vehicle_count = get_count($user_conn, 'Vehicles');
-$driver_count = get_count($user_conn, 'Drivers');
-$maintenance_count = get_count($user_conn, 'Maintainances');
-$fuel_count = get_count($user_conn, 'FuelTransactions');
+// $vehicle_count = get_count($user_conn, 'Vehicles');
+// $driver_count = get_count($user_conn, 'Drivers');
+// $maintenance_count = get_count($user_conn, 'Maintainances');
+// $fuel_count = get_count($user_conn, 'FuelTransactions');
 
 // Get data based on active tab
 $vehicles = ($active_tab == 'vehicles') ? get_vehicles($user_conn) : [];
